@@ -1,16 +1,19 @@
 <template>
-  <div>
-   <movies :movies = "movies"/>
+  <div class="container mt-4">
+   <movies-row 
+        v-for="movie in movies" 
+        :key="movie.id"
+        :movie = "movie"/>
   </div>
 </template>
 
 <script>
-import Movies from '../components/Movies.vue'
+import MoviesRow from '../components/MoviesRow.vue'
 import {movies} from '../services/MovieService'
 
 export default {
   components: {
-    Movies,
+    MoviesRow,
   },
 
   data() {
@@ -20,9 +23,9 @@ export default {
   },
 
   beforeRouteEnter (to, from, next) {
-      movies.getAll().then(response => {
+      movies.getAll().then(({data}) => {
           next(vm =>{
-              vm.movies = response.data
+              vm.movies = data
           })
       })
       .catch(err => console.log(err))

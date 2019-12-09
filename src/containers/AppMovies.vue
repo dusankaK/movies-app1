@@ -1,0 +1,34 @@
+<template>
+  <div>
+   <movies :movies = "movies"/>
+  </div>
+</template>
+
+<script>
+import Movies from '../components/Movies.vue'
+import {movies} from '../services/MovieService'
+
+export default {
+  components: {
+    Movies,
+  },
+
+  data() {
+      return {
+          movies: []
+      }
+  },
+
+  beforeRouteEnter (to, from, next) {
+      movies.getAll().then(response => {
+          next(vm =>{
+              vm.movies = response.data
+          })
+      })
+      .catch(err => console.log(err))
+  }
+}
+</script>
+
+<style>
+</style>

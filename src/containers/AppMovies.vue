@@ -7,10 +7,13 @@
         v-for="movie in filterMovies" 
         :key="movie.id"
         :movie="movie"
-        @selected-movie = "selectMovie"/>
+        @selected-movie = "selectMovie"
+        :isSelected = "isSelected"/>
       <div v-if="filterMovies.length === 0">
         {{ errorMessage }}
-      </div>    
+      </div>
+      <button class="btn btn-primary btn-sm mr-4" @click="selectAll">Select All</button>
+      <button class="btn btn-warning btn-sm" @click="deselectAll">Deselect All</button>    
     </div>
   </div>
 </template>
@@ -31,7 +34,8 @@ export default {
           movies: [],
           title: '',
           errorMessage:'There is no movies on the list.',
-          counterOfSelectedMovies: []
+          counterOfSelectedMovies: [],
+          isSelected : false
       }
   },
 
@@ -47,7 +51,17 @@ export default {
     },
     selectMovie(movie){
       this.counterOfSelectedMovies.push(movie)
-    }
+    },
+    selectAll(){
+      this.isSelected=true;
+      this.counterOfSelectedMovies=[];
+      this.movies.map(movie=> this.counterOfSelectedMovies.push(movie));
+    },
+    deselectAll(){
+      this.isSelected=false;
+      this.counterOfSelectedMovies=[];
+  },
+
   },
 
   beforeRouteEnter (to, from, next) {

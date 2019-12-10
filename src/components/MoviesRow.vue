@@ -20,18 +20,14 @@ export default {
             type: Object,
             required: true
         },
+        isSelected: {
+                type: Boolean,
+            }
     },
-
-    data() {
-        return {
-            isSelected: false
-        }
-    },
-
     methods: {
         selected() {
             this.isSelected = true;
-            this.$emit('selected-movie', this.movie)
+            return this.$emit('selected-movie', this.movie)
         }
     }
 }
@@ -39,6 +35,6 @@ export default {
 <style scoped>
  
  .selectedBackgroundMovie{
-     background-color: aquamarine;
+     background-color: silver;
  }
 </style>
